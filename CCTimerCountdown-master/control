@@ -1,8 +1,0 @@
-Package: com.zanehelton.cctimercountdown
-Name: CCTimerCountdown
-Depends: mobilesubstrate, firmware (>= 9.0)
-Version: 0.0.2
-Architecture: iphoneos-arm
-Description: This tweak shows how much time is left on an active alarm from within the control center.
-Author: Zane Helton
-Section: Tweaks
