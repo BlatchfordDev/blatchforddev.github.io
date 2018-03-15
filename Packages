@@ -11,3 +11,14 @@ Section: Tweaks
 Description: Regain control of your device
 Author: Levi <blatchford@devpizza.com>
 Name: ControlPanel 10
+
+Package: com.burbn.instagram
+Name: InstagramUICustomizer
+Version: 0.0.1-3
+Architecture: iphoneos-arm
+Description: This is a test tweak to see if my repo is working.
+Depiction: http://repo.winneonsword.net/packages/package.html
+Homepage: http://repo.winneonsword.net
+Maintainer: Levi <blatchford@devpizza.com>
+Author: Levi <blatchford@devpizza.com>
+Section: Applications
