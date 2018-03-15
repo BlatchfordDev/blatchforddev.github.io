@@ -1,8 +1,8 @@
-Origin: DevPizza Repo
-Label: DevPizza Repo
+Origin: Blatchford's Lab
+Label: Blatchford's Lab
 Suite: stable
-Version: 1.0
-Codename: ios
+Version: 69
+Codename: stable
 Architectures: iphoneos-arm
 Components: main
-Description: DevPizza Repo
+Description: My personal repo for betas, experiments etc.
