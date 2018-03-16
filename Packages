@@ -298,3 +298,17 @@ Author: Sticktron <sticktron@hotmail.com>
 Icon: file:///Library/PreferenceBundles/CCMetersSettings.bundle/Icon.png
 Name: CCMeters (iOS 7-8)
 
+Package: com.officialscheduler.mterminal
+Version: 1.5
+Architecture: iphoneos-arm
+Installed-Size: 
+Filename: ./debs/mterminal-app.deb
+Size: 
+MD5sum: 19e1c71108416931baf5ef7e006d3109
+SHA1: ab1706ec31ebd6db1649d8e8a6f5e37b96396d40
+SHA256: 94cad117fb9b949053b8dc20581ab0716e243a20a4ee053a9810e100bba4e13a
+Section: System
+Homepage: http://devpizza.com/
+Description: Mobile Terminal - TEST / UNSTABLE / DO NOT USE
+Author: Levi <blatchford@devpizza.com>
+Name: MTerminal
