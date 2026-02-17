@@ -3,13 +3,33 @@
     {
       "slug": "Machinations",
       "title": "Machinations v4.05",
-      "desc": "Patched build with auto-scaling work, plus legacy size builds accessible via URL param.",
-      "tags": ["SWF", "Ruffle", "Auto-Scaling", "?size=WxH"],
+      "desc": "Patched build with auto-scaling, plus legacy size builds. For EDU use.",
+      "tags": ["SWF", "Ruffle", "Auto-Scaling", "?size=WxH", "Archived Edu Software", "Joris Dormans"],
+
+      "browserLabel": "Launch Machinations →",
+      "offlineLabel": "Offline Version",
+      "otherVersionsLabel": "Other versions",
+      "otherVersionsSubtitle": "Pick a build to launch in your browser.",
+
+      "tipLabel": "URL:",
+      "tip": "https://blatchforddev.github.io/project/Machinations/",
+
       "links": {
-        "browser": "/project/Machinations/",
+        "browserBase": "/project/Machinations/",
         "offline": "https://github.com/BlatchfordDev/Machinations"
       },
-      "tip": "?size=1920x1080"
+
+      "infoLabel": "Credits",
+      "infoTitle": "Machinations v4.05",
+      "infoSubtitle": "Credits & Sources",
+      "infoHtml": "<div><h4>Original Author</h4><div class=\"muted\">Joris Dormans (2009–2013)</div></div><div><h4>Original SWF archive source</h4><div><a href=\"https://github.com/kopkong/DesignDocs/blob/master/Machinations/Machinations.swf\" target=\"_blank\" rel=\"noopener noreferrer\">kopkong/DesignDocs — Machinations.swf</a></div></div><div><h4>Resized builds (2020)</h4><div><a href=\"https://github.com/DleanJeans/Machinations\" target=\"_blank\" rel=\"noopener noreferrer\">DleanJeans/Machinations</a></div></div><div><h4>Auto-scaling wrapper (2026)</h4><div class=\"muted\">BlatchfordDev</div></div><div><h4>Tooling used for decompiling / resizing</h4><div><a href=\"https://github.com/jindrapetrik/jpexs-decompiler\" target=\"_blank\" rel=\"noopener noreferrer\">JPEXS Free Flash Decompiler (jindrapetrik/jpexs-decompiler)</a></div></div><div class=\"modalDivider\"></div><div class=\"muted\">This is an archived educational build of Machinations v4.05. Not affiliated with or endorsed by the original author.</div>",
+
+      "versions": [
+        { "label": "Auto-scale (default)", "swf": "auto-scale.swf", "default": true },
+        { "label": "1920×1080", "size": "1920x1080", "swf": "DleanJeans-1920x1080.swf" },
+        { "label": "1366×768", "size": "1366x768", "swf": "DleanJeans-1366x768.swf" },
+        { "label": "Original 800×600", "swf": "Original-800x600.swf" }
+      ]
     }
   ]
 }
