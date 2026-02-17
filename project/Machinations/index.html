@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Machinations • BlatchfordDev</title>
+
+  <style>
+    :root { color-scheme: dark; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: #0b0f14;
+      color: #e8eef6;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    header a, header .pill {
+      pointer-events: auto;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      padding: 8px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      font-size: 14px;
+      line-height: 1;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    #wrap {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* The SWF lives inside this container */
+    #stage {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* Small hint if something fails */
+    #fallback {
+      display: none;
+      position: fixed;
+      inset: 0;
+      padding: 24px;
+      box-sizing: border-box;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    #fallback code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 8px;
+    }
+  </style>
+
+  prevents automatic translation tools from doing weird stuff
+  <meta name="google" content="notranslate" />
+
+  <!-- Ruffle (Flash Player emulator) -->
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/project/">← Projects</a>
+    <div class="pill" id="info">Loading…</div>
+  </header>
+
+  <div id="wrap">
+    <div id="stage"></div>
+  </div>
+
+  <div id="fallback">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h2 style="margin: 0 0 10px;">Couldn’t start the SWF</h2>
+      <p style="margin: 0 0 10px;">
+        Check that <code>auto-scale.swf</code> (and any size SWFs) are in the same folder as this page.
+      </p>
+      <p style="margin: 0;">
+        Open DevTools → Console for details.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // --- Config ---
+    const DEFAULT_SWF = "auto-scale.swf";
+
+    // If ?size=1920x1080, this page will try to load:
+    //   dleanjeans-1920x1080.swf
+    // If the size param doesn't match the expected format, it falls back to DEFAULT_SWF.
+    function pickSwfFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const size = params.get("size");
+
+      if (!size) {
+        return { swf: DEFAULT_SWF, size: null };
+      }
+
+      // Accept "1920x1080" (2-5 digits each side)
+      const match = size.match(/^(\d{2,5})x(\d{2,5})$/i);
+      if (!match) {
+        return { swf: DEFAULT_SWF, size: null };
+      }
+
+      // Your naming convention from the screenshot:
+      //   dleanjeans-1366x768.swf
+      //   dleanjeans-1920x1080.swf
+      const swf = `dleanjeans-${match[1]}x${match[2]}.swf`;
+      return { swf, size: `${match[1]}x${match[2]}` };
+    }
+
+    function setInfo(text) {
+      const el = document.getElementById("info");
+      if (el) el.textContent = text;
+    }
+
+    function showFallback() {
+      const fb = document.getElementById("fallback");
+      if (fb) fb.style.display = "block";
+    }
+
+    (function boot() {
+      const stage = document.getElementById("stage");
+      if (!stage) return;
+
+      const choice = pickSwfFromQuery();
+
+      // Display what we intend to load
+      if (choice.size) {
+        setInfo(`size=${choice.size} → ${choice.swf}`);
+      } else {
+        setInfo(`default → ${choice.swf} (tip: ?size=1920x1080)`);
+      }
+
+      // Create Ruffle player
+      try {
+        if (!window.RufflePlayer) {
+          setInfo("Ruffle failed to load");
+          showFallback();
+          return;
+        }
+
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+
+        // Make it fill the stage container
+        player.style.width = "100%";
+        player.style.height = "100%";
+
+        // Clear stage (in case of hot reloads) and mount player
+        stage.innerHTML = "";
+        stage.appendChild(player);
+
+        // Load the SWF
+        player.load(choice.swf).catch((err) => {
+          console.error("SWF load failed:", err);
+          setInfo(`Failed → ${choice.swf}`);
+          showFallback();
+        });
+
+      } catch (err) {
+        console.error("Boot failed:", err);
+        setInfo("Boot failed (see console)");
+        showFallback();
+      }
+    })();
+  </script>
+</body>
+</html>
