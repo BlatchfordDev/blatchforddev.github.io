@@ -1,20 +1,702 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BlatchfordDev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BlatcDev Github</title>
+
+  <meta name="theme-color" content="#0b0f14" />
+  <meta name="google" content="notranslate" />
+
   <style>
-    body{margin:0;font-family:system-ui;background:#0b0f14;color:#e8eef6}
-    main{max-width:1000px;margin:0 auto;padding:24px}
-    a{color:inherit;text-decoration:none}
-    .card{display:block;padding:16px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
-    .card:hover{background:rgba(255,255,255,.09)}
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #0b0f14;
+      color: #e8eef6;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(110,231,183,0.12), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, rgba(96,165,250,0.14), transparent 60%),
+        radial-gradient(900px 600px at 50% 90%, rgba(167,139,250,0.10), transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+      box-shadow: 0 0 18px rgba(96,165,250,0.28);
+      flex: 0 0 auto;
+    }
+
+    .brand .copyable {
+      opacity: 0.85;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      user-select: none;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .brand .copyable:hover { background: rgba(255,255,255,0.09); }
+
+    .pillbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    a.pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      font-size: 13px;
+      line-height: 1;
+      user-select: none;
+      transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+    }
+    a.pill:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.16);
+      transform: translateY(-1px);
+    }
+
+    .ico { width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; }
+    .pill .ico svg { width: 16px; height: 16px; display: block; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items: stretch;
+      margin-top: 10px;
+    }
+    @media (max-width: 920px) { .hero { grid-template-columns: 1fr; } }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+    }
+
+    .profile {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      flex: 0 0 auto;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .titleblock { min-width: 0; }
+    .name {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 0.2px;
+      line-height: 1.1;
+    }
+    .handle {
+      margin-top: 6px;
+      opacity: 0.75;
+      font-size: 14px;
+    }
+    .meta {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      opacity: 0.82;
+      font-size: 13px;
+    }
+
+    .chiprow {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 13px;
+      opacity: 0.92;
+      user-select: none;
+    }
+
+    .cta { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; }
+    .cta h2 { margin: 0 0 8px; font-size: 18px; opacity: 0.95; }
+    .cta p { margin: 0; opacity: 0.78; font-size: 14px; line-height: 1.4; }
+
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      font-size: 14px;
+      line-height: 1;
+      transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-1px);
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(96,165,250,0.22), rgba(110,231,183,0.18));
+      border-color: rgba(255,255,255,0.18);
+    }
+    .btn.ghost {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    /* button icons */
+    .btn svg { width: 16px; height: 16px; flex: 0 0 auto; display: block; }
+
+    .divider {
+      margin: 18px 0 14px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.14), transparent);
+      border: 0;
+    }
+
+    .sectionhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .section h3 {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+
+    .searchwrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      min-width: 260px;
+    }
+
+    .input {
+      width: 340px;
+      max-width: 80vw;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #e8eef6;
+      outline: none;
+      font-size: 14px;
+    }
+    .input:focus {
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    /* Project cards */
+    .project {
+      grid-column: span 6;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.16);
+      overflow: hidden;
+      transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 180px;
+    }
+    .project:hover {
+      border-color: rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+    }
+
+    .projectTop { display: flex; flex-direction: column; gap: 6px; }
+    .projectTitle { font-size: 16px; font-weight: 650; margin: 0; }
+    .projectDesc { opacity: 0.78; font-size: 14px; line-height: 1.35; }
+
+    .projectMid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .projectActions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .tipline {
+      opacity: 0.85;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tags {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      opacity: 0.92;
+      font-size: 12px;
+    }
+
+    .tag {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.10);
+      user-select: none;
+    }
+
+    @media (max-width: 920px) {
+      .project { grid-column: span 12; }
+      .input { width: 100%; }
+    }
+
+    footer {
+      margin-top: 22px;
+      opacity: 0.65;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .muted { opacity: 0.75; }
+
+    .copy {
+      cursor: pointer;
+      user-select: none;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .copy:hover { background: rgba(255,255,255,0.11); }
   </style>
 </head>
+
 <body>
-  <main>
-    <h1>BlatchfordDev</h1>
-    <a class="card" href="/project/">Open Projects</a>
-  </main>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <div class="dot"></div>
+        <span class="copyable" data-copy="blatchforddev.github.io" title="Click to copy">blatchforddev.github.io</span>
+      </div>
+
+      <div class="pillbar">
+        <a class="pill" href="https://blatc.dev/" target="_blank" rel="noopener noreferrer">
+          <span class="ico" aria-hidden="true">
+            <!-- Your website SVG (as provided) -->
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              width="100%" viewBox="0 0 295 232" enable-background="new 0 0 295 232" xml:space="preserve">
+              <!-- (kept exactly as your file currently has it) -->
+              <path fill="#FFFFFF" opacity="0.000000" stroke="none" d="M121.000000,233.000000 C81.074272,233.000000 41.148548,233.000000 1.000000,233.000000 C1.000000,194.646057 1.000000,156.291687 1.320978,117.557640 C3.968456,119.421730 6.294956,121.665497 8.822497,124.211533 C42.313789,157.790970 75.604042,191.068146 108.409637,223.860855 C116.962959,215.629364 125.108841,207.789993 133.548309,199.834778 C135.771225,198.224533 137.700531,196.730133 139.690613,195.188660 C114.599274,170.099075 90.465858,145.985886 66.375549,121.829712 C65.019051,120.469513 64.017021,118.755798 62.943848,116.866356 C90.170364,89.372200 117.313545,62.228779 144.429245,35.057930 C152.402115,27.068836 160.297150,19.002031 168.525467,10.852251 C170.893204,8.537376 172.963318,6.341087 175.334641,3.997854 C176.090561,2.900608 176.545288,1.950307 177.000000,1.000002 C216.592377,1.000000 256.184753,1.000000 296.000000,1.000000 C296.000000,39.020603 296.000000,77.041641 295.670990,115.454102 C265.158112,85.660233 234.979446,55.469746 204.782654,25.297413 C201.624817,22.142153 198.359604,19.094353 195.001953,15.670624 C188.737366,9.764114 188.737274,9.764026 183.188629,15.311909 C181.191849,17.308424 179.197449,19.307356 177.198746,21.301947 C171.010941,27.476965 164.821579,33.650425 158.406540,40.050247 C160.934525,42.391380 162.983276,44.288708 165.173080,46.478531 C187.431091,68.902191 209.553528,91.027916 231.650955,113.178574 C232.917847,114.448517 233.980927,115.921814 234.935516,117.544395 C197.897903,154.616043 161.055771,191.435944 124.260933,228.303024 C122.935699,229.630890 122.076431,231.423828 121.000000,233.000000 z"/>
+              <path fill="#ffffff" opacity="1.000000" stroke="none" d="M195.144211,15.996693 C198.359604,19.094353 201.624817,22.142153 204.782654,25.297413 C234.979446,55.469746 265.158112,85.660233 295.670990,115.922760 C296.000000,116.444443 296.000000,116.888893 295.670990,117.743912 C258.177277,155.320160 221.010544,192.483826 183.858337,229.661987 C182.825958,230.695099 181.949280,231.883820 181.000000,233.000000 C164.979111,233.000000 148.958206,233.000000 132.667694,232.733887 C133.674240,231.431732 135.054596,230.500015 136.211365,229.344467 C170.563461,195.029678 204.894806,160.694107 239.219940,126.352348 C240.250458,125.321342 241.179199,124.188629 242.854111,122.326508 C240.071533,120.513817 237.605194,118.907143 235.138855,117.300468 C233.980927,115.921814 232.917847,114.448517 231.650955,113.178574 C209.553528,91.027916 187.431091,68.902191 165.480164,46.329903 C175.478867,35.924751 185.311539,25.960722 195.144211,15.996693 z"/>
+              <path fill="#008FCE" opacity="1.000000" stroke="none" d="M1.000000,116.250000 C1.766900,115.398964 2.606221,114.870369 3.290338,114.186516 C40.809746,76.681496 78.316154,39.163464 115.911942,1.323377 C116.000000,1.000000 116.500000,1.000000 116.858841,1.221221 C117.419800,1.717071 117.682999,1.907089 118.149055,2.341473 C119.189919,5.420725 120.089027,8.171000 120.830292,11.217046 C95.980515,36.233768 71.277046,60.943211 46.601448,85.680458 C33.915798,98.397804 21.279856,111.164734 8.621454,123.909264 C6.294956,121.665497 3.968456,119.421730 1.320978,117.088982 C1.000000,117.000000 1.000000,116.500000 1.000000,116.250000 z"/>
+              <path fill="#008FCE" opacity="1.000000" stroke="none" d="M234.935516,117.544395 C237.605194,118.907143 240.071533,120.513817 242.854111,122.326508 C241.179199,124.188629 240.250458,125.321342 239.219940,126.352348 C204.894806,160.694107 170.563461,195.029678 136.211365,229.344467 C135.054596,230.500015 133.674240,231.431732 132.199036,232.733887 C128.638718,233.000000 125.277428,233.000000 121.458069,233.000000 C122.076431,231.423828 122.935699,229.630890 124.260933,228.303024 C161.055771,191.435944 197.897903,154.616043 234.935516,117.544395 z"/>
+              <path fill="#008FCE" opacity="1.000000" stroke="none" d="M120.988144,10.921276 C120.089027,8.171000 119.189919,5.420725 118.154800,2.088215 C118.012535,1.337320 118.006264,1.168660 118.000000,1.000000 C136.687561,1.000000 155.375122,1.000000 174.526917,1.392717 C175.005249,2.571889 175.019333,3.358343 175.033432,4.144798 C172.963318,6.341087 170.893204,8.537376 168.040909,10.813849 C151.835205,10.903114 136.411667,10.912195 120.988144,10.921276 z"/>
+              <path fill="#FFFFFF" opacity="1.000000" stroke="none" d="M120.830292,11.217045 C136.411667,10.912195 151.835205,10.903114 167.743286,10.932436 C160.297150,19.002031 152.402115,27.068836 144.429245,35.057930 C117.313545,62.228779 90.170364,89.372200 62.590874,116.808662 C59.889030,118.744499 57.633991,120.397758 55.165325,122.207642 C56.576813,123.803787 57.292118,124.704445 58.099846,125.512726 C82.103142,149.532272 106.111542,173.546738 130.142044,197.539062 C131.063568,198.459122 132.212006,199.151917 133.254715,199.950607 C125.108841,207.789993 116.962959,215.629364 108.409637,223.860855 C75.604042,191.068146 42.313789,157.790970 8.822495,124.211533 C21.279856,111.164734 33.915798,98.397804 46.601448,85.680458 C71.277046,60.943211 95.980515,36.233768 120.830292,11.217045 z"/>
+            </svg>
+          </span>
+          Website
+        </a>
+
+        <a class="pill" href="https://blatc.itch.io/" target="_blank" rel="noopener noreferrer">
+          <span class="ico" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="currentColor">
+              <path d="M71.9 34.8C50.2 47.7 7.4 96.8 7 109.7l0 21.3c0 27.1 25.3 50.8 48.2 50.8 27.6 0 50.5-22.8 50.5-50 0 27.1 22.2 50 49.8 50s49-22.8 49-50c0 27.1 23.6 50 51.2 50l.5 0c27.6 0 51.2-22.8 51.2-50 0 27.1 21.5 50 49 50s49.8-22.8 49.8-50c0 27.1 23 50 50.5 50 23 0 48.3-23.8 48.3-50.8l0-21.3c-.4-12.9-43.2-62.1-64.9-75-67.4-2.3-114.2-2.7-184-2.7S91.1 33.1 71.9 34.8zM204.2 169.2c-22 38.4-77.9 38.7-99.8 .2-13.2 23.1-43.2 32.1-56 27.7-3.9 40.2-13.7 237.1 17.7 269.2 80 18.7 302.1 18.1 379.8 0 31.6-32.3 21.3-232 17.7-269.2-12.9 4.4-42.9-4.6-56-27.7-22 38.5-77.8 38.1-99.8-.2-7.1 12.5-23 28.9-51.8 28.9-10.4 .3-20.8-2.2-29.9-7.3s-16.7-12.6-21.9-21.6l0 0zm-41.6 53.8c16.5 0 31.1 0 49.2 19.8 29.3-3 58.9-3 88.2 0 18.2-19.7 32.8-19.7 49.2-19.7 52.3 0 65.2 77.5 83.9 144.4 17.3 62.2-5.5 63.7-34 63.7-42.1-1.6-65.5-32.2-65.5-62.8-39.3 6.4-101.9 8.8-155.6 0 0 30.6-23.3 61.2-65.5 62.8-28.4-.1-51.2-1.6-33.9-63.7 18.7-67 31.6-144.4 83.9-144.4l0-.1zM256 270.8s-44.4 40.8-52.4 55.2l29-1.2 0 25.3c0 1.5 21.3 .2 23.3 .2 11.6 .5 23.3 1 23.3-.2l0-25.3 29 1.2c-8-14.5-52.4-55.2-52.4-55.2l.1 0z"/>
+            </svg>
+          </span>
+          Itch.io
+        </a>
+
+        <a class="pill" href="https://github.com/BlatchfordDev" target="_blank" rel="noopener noreferrer">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.4 6.9 9.7.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.4-3.4-1.4-.4-1.1-1-1.4-1-1.4-.9-.6.1-.6.1-.6 1 0 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.5-1.1-4.5-5a4 4 0 0 1 1-2.8 3.7 3.7 0 0 1 .1-2.7s.9-.3 2.8 1.1a9.3 9.3 0 0 1 5.1 0c1.9-1.4 2.8-1.1 2.8-1.1.6 1.6.2 2.4.1 2.7a4 4 0 0 1 1 2.8c0 3.9-2.3 4.7-4.5 5 .4.3.7 1 .7 2.1v3c0 .3.2.6.7.5 4-1.3 6.9-5.2 6.9-9.7C22 6.6 17.5 2 12 2Z" fill="currentColor"/>
+            </svg>
+          </span>
+          GitHub
+        </a>
+
+        <a class="pill" href="https://twitter.com/blatcdev" target="_blank" rel="noopener noreferrer">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 19.5 10.2 13M14.1 9.2 20 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M20 20.5 4 3.5h6l10 17h-6Z" fill="currentColor" opacity="0.9"/>
+            </svg>
+          </span>
+          X
+        </a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="card">
+        <div class="profile">
+          <div class="avatar" title="BlatchfordDev avatar">
+            <img src="https://github.com/BlatchfordDev.png?size=200" alt="BlatchfordDev avatar" />
+          </div>
+
+          <div class="titleblock">
+            <h1 class="name">BlatchfordDev</h1>
+            <div class="handle">Blatc • @BlatcDev • Australia</div>
+            <div class="meta">
+              <span class="muted">Game design + dev tools + experiments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chiprow" aria-label="Tech stack">
+          <span class="chip">Game Dev</span>
+          <span class="chip">React</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Next.js</span>
+          <span class="chip">TailwindCSS</span>
+        </div>
+      </div>
+
+      <div class="card cta">
+        <div>
+          <h2>GitHub Profile</h2>
+          <p>Repos, tools, experiments, and whatever I’m shipping next.</p>
+
+          <div class="actions">
+            <a class="btn primary" href="https://github.com/BlatchfordDev" target="_blank" rel="noopener noreferrer">
+              View GitHub →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section" id="projects">
+      <div class="sectionhead">
+        <h3>Projects</h3>
+        <div class="searchwrap">
+          <input id="q" class="input" placeholder="Search projects…" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="grid" id="projectsGrid"></div>
+      <div class="muted" id="projectsStatus" style="margin-top:10px; font-size:13px;">Loading…</div>
+    </div>
+
+    <footer>
+      <div>© <span id="y"></span> BlatchfordDev</div>
+      <div class="muted">Built on GitHub Pages</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          return true;
+        } catch {
+          return false;
+        }
+      }
+    }
+
+    document.addEventListener("click", async (e) => {
+      const el = e.target.closest("[data-copy]");
+      if (!el) return;
+
+      const text = el.getAttribute("data-copy") || "";
+      const original = el.textContent;
+
+      const ok = await copyText(text);
+      if (!ok) return;
+
+      if (el.classList.contains("copy") || el.classList.contains("copyable")) {
+        el.textContent = "Copied!";
+        setTimeout(() => (el.textContent = original), 900);
+      }
+    });
+
+    const grid = document.getElementById("projectsGrid");
+    const statusEl = document.getElementById("projectsStatus");
+    const input = document.getElementById("q");
+
+    function createEl(tag, attrs = {}, children = []) {
+      const el = document.createElement(tag);
+      for (const [k, v] of Object.entries(attrs)) {
+        if (k === "class") el.className = v;
+        else if (k === "text") el.textContent = v;
+        else el.setAttribute(k, v);
+      }
+      for (const c of children) el.appendChild(c);
+      return el;
+    }
+
+    const ICONS = {
+      globe: `
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7.6 9H16.7a15 15 0 0 0-1.2-5A8.1 8.1 0 0 1 19.6 11ZM12 4.1c.9 1.2 1.8 3.1 2.3 6.9H9.7c.5-3.8 1.4-5.7 2.3-6.9ZM4.4 13h2.9c.1 2 .6 3.8 1.2 5A8.1 8.1 0 0 1 4.4 13Zm2.9-2H4.4a8.1 8.1 0 0 1 4.1-5c-.6 1.2-1.1 3-1.2 5Zm2.4 2h4.6c-.5 3.8-1.4 5.7-2.3 6.9-.9-1.2-1.8-3.1-2.3-6.9Zm6.6 0h2.9a8.1 8.1 0 0 1-4.1 5c.6-1.2 1.1-3 1.2-5Zm-2.6 0c-.1 2-.6 3.8-1.2 5-.6-1.2-1.1-3-1.2-5h2.4Z"/>
+        </svg>
+      `,
+      github: `
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.4 6.9 9.7.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.4-3.4-1.4-.4-1.1-1-1.4-1-1.4-.9-.6.1-.6.1-.6 1 0 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.5-1.1-4.5-5a4 4 0 0 1 1-2.8 3.7 3.7 0 0 1 .1-2.7s.9-.3 2.8 1.1a9.3 9.3 0 0 1 5.1 0c1.9-1.4 2.8-1.1 2.8-1.1.6 1.6.2 2.4.1 2.7a4 4 0 0 1 1 2.8c0 3.9-2.3 4.7-4.5 5 .4.3.7 1 .7 2.1v3c0 .3.2.6.7.5 4-1.3 6.9-5.2 6.9-9.7C22 6.6 17.5 2 12 2Z"/>
+        </svg>
+      `
+    };
+
+    function makeAction(label, href, primary, external, iconKey) {
+      const cls = "btn" + (primary ? " primary" : " ghost");
+      const a = document.createElement("a");
+      a.className = cls;
+      a.href = href;
+
+      if (external) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+
+      if (iconKey && ICONS[iconKey]) {
+        a.innerHTML = ICONS[iconKey] + "<span>" + label + "</span>";
+      } else {
+        a.textContent = label;
+      }
+
+      return a;
+    }
+
+    function makeProjectCard(p) {
+      const card = createEl("div", {
+        class: "project",
+        "data-title": (p.title || "").toLowerCase(),
+        "data-slug": (p.slug || "").toLowerCase()
+      });
+
+      const top = createEl("div", { class: "projectTop" }, [
+        createEl("div", { class: "projectTitle", text: p.title || p.slug }),
+        createEl("div", { class: "projectDesc", text: p.desc || "Open this project" })
+      ]);
+
+      const actions = createEl("div", { class: "projectActions" });
+
+      if (p.links && p.links.browser) {
+        actions.appendChild(makeAction("Browser", p.links.browser, true, false, "globe"));
+      }
+      if (p.links && p.links.offline) {
+        actions.appendChild(makeAction("Offline Version", p.links.offline, false, true, "github"));
+      }
+      if (!actions.childNodes.length) {
+        actions.appendChild(makeAction("Open →", "./project/" + p.slug + "/", true, false, "globe"));
+      }
+
+      const mid = createEl("div", { class: "projectMid" }, [actions]);
+
+      card.appendChild(top);
+      card.appendChild(mid);
+
+      if (p.tip) {
+        const tip = createEl("div", { class: "tipline" });
+        tip.appendChild(document.createTextNode("Tip: "));
+        tip.appendChild(createEl("span", { class: "copy", "data-copy": p.tip, title: "Click to copy", text: p.tip }));
+        card.appendChild(tip);
+      }
+
+      const tags = createEl("div", { class: "tags" });
+      (p.tags || []).forEach(t => tags.appendChild(createEl("span", { class: "tag", text: t })));
+      card.appendChild(tags);
+
+      return card;
+    }
+
+    function render(list) {
+      grid.innerHTML = "";
+      if (!list.length) {
+        statusEl.textContent = "No projects found.";
+        return;
+      }
+      list.forEach(p => grid.appendChild(makeProjectCard(p)));
+      statusEl.textContent = `${list.length} project${list.length === 1 ? "" : "s"}.`;
+    }
+
+    async function loadProjectsFromJson() {
+      const res = await fetch("./projects.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("No projects.json");
+      const data = await res.json();
+      const list = Array.isArray(data) ? data : (data.projects || []);
+      return list.filter(p => p && p.slug);
+    }
+
+    async function loadProjectsFromFolderListing() {
+      const res = await fetch("./project/", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to fetch ./project/ directory listing");
+
+      const html = await res.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const links = Array.from(doc.querySelectorAll("a"));
+
+      const folderHrefs = links
+        .map(a => a.getAttribute("href"))
+        .filter(Boolean)
+        .filter(h => h.endsWith("/"))
+        .filter(h => h !== "../" && h !== "./")
+        .filter(h => !h.startsWith("?"));
+
+      const unique = Array.from(new Set(folderHrefs));
+      return unique
+        .map(href => {
+          const slug = href.replace(/^\/?project\//, "").replace(/\/$/, "");
+          return { slug, title: slug, desc: "Open this project", links: { browser: "./project/" + slug + "/" }, tags: ["Project"] };
+        })
+        .filter(p => p.slug && !p.slug.startsWith(".") && p.slug.toLowerCase() !== "assets")
+        .sort((a,b) => (a.title || "").localeCompare(b.title || ""));
+    }
+
+    let all = [];
+
+    function applyFilter() {
+      const q = (input.value || "").trim().toLowerCase();
+      if (!q) return render(all);
+
+      const filtered = all.filter(p => {
+        const hay = [
+          p.slug, p.title, p.desc,
+          ...(p.tags || [])
+        ].join(" ").toLowerCase();
+        return hay.includes(q);
+      });
+
+      render(filtered);
+    }
+
+    (async () => {
+      try {
+        all = await loadProjectsFromJson();
+      } catch (e) {
+        console.warn("projects.json not found or invalid; falling back to ./project/ listing");
+        try {
+          all = await loadProjectsFromFolderListing();
+        } catch (err) {
+          console.error(err);
+          all = [];
+          statusEl.textContent = "Couldn’t load projects.";
+        }
+      }
+
+      render(all);
+      input.addEventListener("input", applyFilter);
+    })();
+  </script>
 </body>
 </html>

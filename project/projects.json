@@ -1,0 +1,15 @@
+{
+  "projects": [
+    {
+      "slug": "Machinations",
+      "title": "Machinations v4.05",
+      "desc": "Patched build with auto-scaling work, plus legacy size builds accessible via URL param.",
+      "tags": ["SWF", "Ruffle", "Auto-Scaling", "?size=WxH"],
+      "links": {
+        "browser": "/project/Machinations/",
+        "offline": "https://github.com/BlatchfordDev/Machinations"
+      },
+      "tip": "?size=1920x1080"
+    }
+  ]
+}

@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Machinations • BlatchfordDev</title>
+  <title>Machinations v4.05 • Patched by BlatchfordDev</title>
 
   <style>
     :root { color-scheme: dark; }
+
     html, body {
       margin: 0;
       width: 100%;
@@ -19,7 +20,7 @@
 
     header {
       position: fixed;
-      top: 12px;
+      bottom: 12px;
       left: 12px;
       right: 12px;
       display: flex;
@@ -28,6 +29,14 @@
       gap: 10px;
       pointer-events: none;
       z-index: 10;
+    }
+
+    /* Left side: Projects + Offline Version */
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: auto;
     }
 
     header a, header .pill {
@@ -79,7 +88,7 @@
     }
   </style>
 
-  prevents automatic translation tools from doing weird stuff
+  <!-- Prevent automatic translation tools from doing anything weird -->
   <meta name="google" content="notranslate" />
 
   <!-- Ruffle (Flash Player emulator) -->
@@ -88,7 +97,11 @@
 
 <body>
   <header>
-    <a href="/project/">← Projects</a>
+    <div class="nav-left">
+      <a href="/project/">← Projects</a>
+      <a href="https://github.com/BlatchfordDev/Machinations" target="_blank" rel="noopener noreferrer">Offline Version</a>
+    </div>
+
     <div class="pill" id="info">Loading…</div>
   </header>
 
@@ -123,13 +136,12 @@
         return { swf: DEFAULT_SWF, size: null };
       }
 
-      // Accept "1920x1080" (2-5 digits each side)
+      // Accept custom sizing from DleanJeans swf's = "1920x1080", "1366x768"
       const match = size.match(/^(\d{2,5})x(\d{2,5})$/i);
       if (!match) {
         return { swf: DEFAULT_SWF, size: null };
       }
 
-      // Your naming convention from the screenshot:
       //   dleanjeans-1366x768.swf
       //   dleanjeans-1920x1080.swf
       const swf = `dleanjeans-${match[1]}x${match[2]}.swf`;
@@ -152,7 +164,7 @@
 
       const choice = pickSwfFromQuery();
 
-      // Display what we intend to load
+      // Display chosen swf or default.
       if (choice.size) {
         setInfo(`size=${choice.size} → ${choice.swf}`);
       } else {
@@ -170,7 +182,7 @@
         const ruffle = window.RufflePlayer.newest();
         const player = ruffle.createPlayer();
 
-        // Make it fill the stage container
+        // Make player fill the stage container
         player.style.width = "100%";
         player.style.height = "100%";
 
