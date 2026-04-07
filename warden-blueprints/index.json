@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-04-07T00:00:00.000Z",
+  "blueprints": [
+    {
+      "id": "crimson-desert",
+      "name": "Crimson Desert",
+      "description": "HP, MP, Stamina, Silver, Selected Item Amount, and game speed. Player stats use pointer chains — no scan needed. Economy values need a one-time scan per session.",
+      "tags": ["Action", "RPG"],
+      "executable": "CrimsonDesert.exe",
+      "notes": "Singleplayer only — Pearl Abyss confirmed no anti-cheat in SP mode. HP, MP, and Stamina resolve automatically via pointer chains. Silver and item amounts require a scan once per session using the Find Address wizard.",
+      "cheat_count": 8,
+      "file": "crimson-desert.warden"
+    },
+    {
+      "id": "elden-ring",
+      "name": "Elden Ring",
+      "description": "HP, FP, Stamina, Runes, and game speed. Pointer chains verified for v1.15 (Shadow of the Erdtree). All player stats resolve automatically — no scan needed.",
+      "tags": ["RPG", "Soulslike"],
+      "executable": "eldenring.exe",
+      "notes": "Singleplayer / offline only — EAC is active in online multiplayer. Pointer chains sourced from the veeenu/eldenring-practice-tool project. If a chain fails after a patch, use Find Address to locate the new value and report it.",
+      "cheat_count": 6,
+      "file": "elden-ring.warden"
+    },
+    {
+      "id": "minecraft",
+      "name": "Minecraft (Java)",
+      "description": "Singleplayer survival helpers: health, hunger, XP level, selected stack count, movement speed.",
+      "tags": ["Sandbox", "Survival"],
+      "executable": "javaw.exe",
+      "notes": "Addresses vary with version, mods, and JVM state. Use Find Address per session where needed.",
+      "cheat_count": 7,
+      "file": "minecraft.warden"
+    },
+    {
+      "id": "prison-architect",
+      "name": "Prison Architect",
+      "description": "Money, research, daily budget, and build speed. No anti-cheat. All addresses require a one-time scan per session — the game heap-allocates its objects.",
+      "tags": ["Strategy", "Simulation"],
+      "executable": "Prison Architect64.exe",
+      "notes": "No anti-cheat (singleplayer only, no VAC). Verified by WeMod, FLiNG, and community CE tables. Addresses shift every session — load a save first, then use Find Address to locate each value. Research is stored as a float: 0.0 = 0%, 1.0 = 100%.",
+      "cheat_count": 5,
+      "file": "prison-architect.warden"
+    }
+  ]
+}
