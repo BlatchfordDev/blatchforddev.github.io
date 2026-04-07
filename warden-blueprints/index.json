@@ -4,6 +4,7 @@
     {
       "id": "crimson-desert",
       "name": "Crimson Desert",
+      "version": "1",
       "description": "HP, MP, Stamina, Silver, Selected Item Amount, and game speed. Player stats use pointer chains — no scan needed. Economy values need a one-time scan per session.",
       "tags": ["Action", "RPG"],
       "executable": "CrimsonDesert.exe",
@@ -14,6 +15,7 @@
     {
       "id": "elden-ring",
       "name": "Elden Ring",
+      "version": "1",
       "description": "HP, FP, Stamina, Runes, and game speed. Pointer chains verified for v1.15 (Shadow of the Erdtree). All player stats resolve automatically — no scan needed.",
       "tags": ["RPG", "Soulslike"],
       "executable": "eldenring.exe",
@@ -24,6 +26,7 @@
     {
       "id": "minecraft",
       "name": "Minecraft (Java)",
+      "version": "1",
       "description": "Singleplayer survival helpers: health, hunger, XP level, selected stack count, movement speed.",
       "tags": ["Sandbox", "Survival"],
       "executable": "javaw.exe",
@@ -34,6 +37,7 @@
     {
       "id": "prison-architect",
       "name": "Prison Architect",
+      "version": "1",
       "description": "Money, research, daily budget, and build speed. No anti-cheat. All addresses require a one-time scan per session — the game heap-allocates its objects.",
       "tags": ["Strategy", "Simulation"],
       "executable": "Prison Architect64.exe",
